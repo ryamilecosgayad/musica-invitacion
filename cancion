@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reproductor de invitación</title>
+  <style>
+    body { background: #333; color: #fff; height: 100vh; display: flex; justify-content: center; align-items: center; }
+    .player { display: flex; align-items: center; }
+    #playBtn {
+      width: 50px; height: 50px; border-radius: 50%; border: 2px solid white;
+      background: transparent; color: white; font-size: 24px; cursor: pointer;
+      transition: transform 0.2s ease, background 0.3s ease, color 0.3s ease;
+    }
+    #playBtn:hover { transform: scale(1.2); }
+    #playBtn.playing { background: white; color: black; }
+  </style>
+</head>
+<body>
+  <div class="player">
+    <audio id="audio" 
+      src="https://ryamilecosgayad.github.io/musica-invitacion/Hasta%20mi%20final.mp3" 
+      preload="auto">
+    </audio>
+    <button id="playBtn">▶</button>
+  </div>
+
+  <script>
+    const audio = document.getElementById('audio');
+    const playBtn = document.getElementById('playBtn');
+
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play().catch(e => console.error(e));
+        playBtn.textContent = '⏸';
+        playBtn.classList.add('playing');
+      } else {
+        audio.pause();
+        playBtn.textContent = '▶';
+        playBtn.classList.remove('playing');
+      }
+    });
+
+    audio.addEventListener('play', () => {
+      playBtn.textContent = '⏸';
+      playBtn.classList.add('playing');
+    });
+    audio.addEventListener('pause', () => {
+      playBtn.textContent = '▶';
+      playBtn.classList.remove('playing');
+    });
+  </script>
+</body>
+</html>
